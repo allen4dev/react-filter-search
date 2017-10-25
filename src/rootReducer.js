@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 
-import feature from './modules/feature';
+import tracks from './modules/tracks';
 
 const rootReducer = combineReducers({
-  [feature.constants.NAME]: feature.reducer,
+  [tracks.constants.NAME]: tracks.reducer,
 });
 
 export default rootReducer;
