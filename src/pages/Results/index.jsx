@@ -1,22 +1,26 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Route, NavLink } from 'react-router-dom';
+import { Route } from 'react-router-dom';
+
+import Overview from './../Overview';
+import Tracks from './../Tracks';
+import Playlists from './../Playlists';
+import Users from './../Users';
+
+import Menu from './../../shared/Menu';
+
+import './index.css';
 
 class Results extends Component {
   render() {
     return (
       <div className="Results">
-        <nav>
-          <NavLink to="/">All</NavLink>
-          <NavLink to="/tracks">Tracks</NavLink>
-          <NavLink to="/playlists">Playlists</NavLink>
-          <NavLink to="/users">Users</NavLink>
-        </nav>
+        <Menu />
 
-        <Route exact path="/" render={() => <h1>Overview</h1>} />
-        <Route path="/tracks" render={() => <h1>Tracks</h1>} />
-        <Route path="/playlists" render={() => <h1>Playlists</h1>} />
-        <Route path="/users" render={() => <h1>Users</h1>} />
+        <Route exact path="/" component={Overview} />
+        <Route path="/tracks" component={Tracks} />
+        <Route path="/playlists" component={Playlists} />
+        <Route path="/users" component={Users} />
       </div>
     );
   }
