@@ -1,1 +1,1 @@
-export const NAME = 'feature';
+export const NAME = 'playlists';

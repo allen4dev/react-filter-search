@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 
-import tracks from './../../modules/tracks';
+import playlists from './../../modules/playlists';
 
 class Results extends Component {
   fetchData = async () => {
-    await this.props.searchTracks('fripSide');
+    await this.props.searchPlaylists('anime');
   };
 
   render() {
@@ -20,5 +20,5 @@ class Results extends Component {
 }
 
 export default connect(null, {
-  searchTracks: tracks.actions.searchTracks,
+  searchPlaylists: playlists.actions.searchPlaylists,
 })(Results);
