@@ -3,26 +3,41 @@ import { NavLink } from 'react-router-dom';
 
 import './index.css';
 
-const Menu = () => {
+const Menu = ({ query }) => {
   return (
     <nav className="Menu">
-      <NavLink to="/" className="Menu-link" activeClassName="Menu-link--active">
+      <NavLink
+        to={{
+          pathname: `/results/all`,
+          search: `q=${query}`,
+        }}
+        className="Menu-link"
+        activeClassName="Menu-link--active">
         All
       </NavLink>
       <NavLink
-        to="/tracks"
+        to={{
+          pathname: `/results/tracks`,
+          search: `q=${query}`,
+        }}
         className="Menu-link"
         activeClassName="Menu-link--active">
         Tracks
       </NavLink>
       <NavLink
-        to="/playlists"
+        to={{
+          pathname: `/results/playlists`,
+          search: `q=${query}`,
+        }}
         className="Menu-link"
         activeClassName="Menu-link--active">
         Playlists
       </NavLink>
       <NavLink
-        to="/users"
+        to={{
+          pathname: `/results/users`,
+          search: `q=${query}`,
+        }}
         className="Menu-link"
         activeClassName="Menu-link--active">
         Users

@@ -10,7 +10,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <div className="App">
-        <Route path="/" component={Results} />
+        <Route path="/results/:filter?" component={Results} />
       </div>
     </Provider>
   );
