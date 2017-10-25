@@ -23,6 +23,16 @@ const api = {
       return playlists;
     },
   },
+  users: {
+    async searchUsers(term) {
+      const url = `${baseURL}/users?q=${term}&limit=10&client_id=${config.CLIENT_ID}`;
+
+      const response = await fetch(url);
+      const users = await response.json();
+
+      return users;
+    },
+  },
 };
 
 export default api;

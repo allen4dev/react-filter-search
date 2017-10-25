@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 
-import playlists from './../../modules/playlists';
+import users from './../../modules/users';
 
 class Results extends Component {
   fetchData = async () => {
-    await this.props.searchPlaylists('anime');
+    await this.props.searchUsers('anime');
   };
 
   render() {
@@ -20,5 +20,5 @@ class Results extends Component {
 }
 
 export default connect(null, {
-  searchPlaylists: playlists.actions.searchPlaylists,
+  searchUsers: users.actions.searchUsers,
 })(Results);
