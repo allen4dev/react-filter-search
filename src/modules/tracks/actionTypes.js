@@ -1,1 +1,5 @@
 import { NAME } from './constants';
+
+export const FETCH_TRACKS_REQUEST = `${NAME}/FETCH_TRACKS_REQUEST`;
+export const FETCH_TRACKS_SUCCESS = `${NAME}/FETCH_TRACKS_SUCCESS`;
+export const FETCH_TRACKS_FAILURE = `${NAME}/FETCH_TRACKS_FAILURE`;
