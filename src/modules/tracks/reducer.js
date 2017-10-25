@@ -16,26 +16,26 @@ function entitiesReducer(state = INITIAL_STATE.entities, action = {}) {
   }
 }
 
-function fetchingReducer(state = INITIAL_STATE.fetching, action = {}) {
-  switch (action.type) {
-    case actionTypes.FETCH_TRACKS_REQUEST:
-      return true;
+// function fetchingReducer(state = INITIAL_STATE.fetching, action = {}) {
+//   switch (action.type) {
+//     case actionTypes.FETCH_TRACKS_REQUEST:
+//       return true;
 
-    case actionTypes.FETCH_TRACKS_SUCCESS:
-      return false;
+//     case actionTypes.FETCH_TRACKS_SUCCESS:
+//       return false;
 
-    default:
-      return state;
-  }
-}
+//     default:
+//       return state;
+//   }
+// }
 
-function resultsReducer(state = INITIAL_STATE.results, action = {}) {
-  if (action.type === actionTypes.FETCH_TRACKS_SUCCESS) {
-    return [...state, ...action.response.result];
-  }
+// function resultsReducer(state = INITIAL_STATE.results, action = {}) {
+//   if (action.type === actionTypes.FETCH_TRACKS_SUCCESS) {
+//     return [...state, ...action.response.result];
+//   }
 
-  return state;
-}
+//   return state;
+// }
 
 function lastReducer(state = INITIAL_STATE.last, action = {}) {
   if (action.type === actionTypes.FETCH_TRACKS_SUCCESS) {
@@ -47,8 +47,8 @@ function lastReducer(state = INITIAL_STATE.last, action = {}) {
 
 const reducer = combineReducers({
   entities: entitiesReducer,
-  fetching: fetchingReducer,
-  results: resultsReducer,
+  // fetching: fetchingReducer,
+  // results: resultsReducer,
   last: lastReducer,
 });
 

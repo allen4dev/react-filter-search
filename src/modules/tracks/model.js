@@ -5,8 +5,6 @@ export const trackListSchema = [trackSchema];
 
 export const INITIAL_STATE = {
   entities: {},
-  results: [],
-  fetching: false,
-  nextPage: '',
+
   last: [],
 };
