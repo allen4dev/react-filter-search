@@ -1,5 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
+import { Route } from 'react-router-dom';
 
 import Results from './pages/Results';
 
@@ -9,7 +10,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <div className="App">
-        <Results />
+        <Route path="/" component={Results} />
       </div>
     </Provider>
   );
