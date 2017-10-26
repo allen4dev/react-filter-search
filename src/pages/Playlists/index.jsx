@@ -9,9 +9,9 @@ import helpers from './../../utils/helpers';
 
 class Playlists extends Component {
   componentDidMount() {
-    const { items } = this.props;
+    const { items, isFetching } = this.props;
 
-    if (items.length === 0) {
+    if (items.length === 0 && !isFetching) {
       this.fetchData();
     }
   }

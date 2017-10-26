@@ -11,9 +11,9 @@ class Users extends Component {
   componentDidMount() {
     console.log('USERS QUERY:', this.props.query);
 
-    const { items } = this.props;
+    const { items, isFetching } = this.props;
 
-    if (items.length === 0) {
+    if (items.length === 0 && !isFetching) {
       this.fetchData();
     }
   }
