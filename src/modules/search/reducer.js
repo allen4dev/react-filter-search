@@ -60,11 +60,28 @@ function lastReducer(filter) {
   };
 }
 
+function nextPageReducer(filter) {
+  return (state = INITIAL_STATE[filter].nextPage, action = {}) => {
+    if (!action.payload || filter !== action.payload.filter) {
+      return state;
+    }
+
+    switch (action.type) {
+      case actionTypes.FETCH_RESOURCE_SUCCESS:
+        return action.payload.nextPage;
+
+      default:
+        return state;
+    }
+  };
+}
+
 function createReducer(filter) {
   return combineReducers({
     results: resultsReducer(filter),
     fetching: fetchingReducer(filter),
     last: lastReducer(filter),
+    nextPage: nextPageReducer(filter),
   });
 }
 

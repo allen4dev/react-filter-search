@@ -3,19 +3,19 @@ export const INITIAL_STATE = {
   tracks: {
     results: [],
     fetching: false,
-    nextPage: '',
+    nextPage: null,
     last: [],
   },
   playlists: {
     results: [],
     fetching: false,
-    nextPage: '',
+    nextPage: null,
     last: [],
   },
   users: {
     results: [],
     fetching: false,
-    nextPage: '',
+    nextPage: null,
     last: [],
   },
 };

@@ -15,17 +15,10 @@ export function setQuery(query) {
   };
 }
 
-function setResults(filter, result) {
+function setResults(filter, result, nextPage) {
   return {
     type: actionTypes.FETCH_RESOURCE_SUCCESS,
-    payload: { filter, result },
-  };
-}
-
-export function setResultsNextPage(filter, result) {
-  return {
-    type: actionTypes.FETCH_RESOURCE_NEXT_PAGE,
-    payload: { filter, result },
+    payload: { filter, result, nextPage },
   };
 }
 
@@ -43,10 +36,20 @@ export function searchTracks(term) {
     dispatch(requestResource('tracks'));
 
     const results = await api.tracks.searchTracks(term);
-    const response = normalize(results, tracks.model.trackListSchema);
+
+    const response = normalize(
+      results.collection,
+      tracks.model.trackListSchema
+    );
+
+    let nextPage = null;
+
+    if (results.next_href) {
+      nextPage = results.next_href;
+    }
 
     dispatch(tracks.actions.setTracks(response));
-    dispatch(setResults('tracks', response.result));
+    dispatch(setResults('tracks', response.result, nextPage));
 
     return response.entities.tracks;
   };
