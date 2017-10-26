@@ -19,10 +19,7 @@ function resultsReducer(filter) {
 
     switch (action.type) {
       case actionTypes.FETCH_RESOURCE_SUCCESS:
-        return [...state, ...action.payload.result];
-
-      // case actionTypes.SET_QUERY:
-      //   return [];
+        return action.payload.result;
 
       default:
         return state;

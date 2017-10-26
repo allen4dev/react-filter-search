@@ -9,29 +9,27 @@ import List from './../../shared/List';
 import './index.css';
 
 import search from './../../modules/search';
-import helpers from './../../utils/helpers';
 
 class Tracks extends Component {
   componentDidMount() {
     console.log('TRACKS QUERY:', this.props.query);
-    const { items, isFetching } = this.props;
+    const { items, isFetching, query } = this.props;
 
     if (items.length === 0 && !isFetching) {
-      this.fetchData();
+      this.fetchData(query);
     }
   }
 
   componentWillReceiveProps(nextProps) {
     const { query } = this.props;
-
-    if (helpers.cleanQuery(nextProps.location.search) !== query) {
+    if (nextProps.query !== query) {
       console.log('FETCH NEW TRACKS HERE');
-      this.fetchData(query);
+      this.fetchData(nextProps.query);
     }
   }
 
-  fetchData = async () => {
-    const { query, searchTracks } = this.props;
+  fetchData = async query => {
+    const { searchTracks } = this.props;
 
     await searchTracks(query);
   };

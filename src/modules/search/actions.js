@@ -22,6 +22,13 @@ function setResults(filter, result) {
   };
 }
 
+export function setResultsNextPage(filter, result) {
+  return {
+    type: actionTypes.FETCH_RESOURCE_NEXT_PAGE,
+    payload: { filter, result },
+  };
+}
+
 export function requestResource(filter) {
   return {
     type: actionTypes.FETCH_RESOURCE_REQUEST,
