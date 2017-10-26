@@ -22,6 +22,13 @@ function setResults(filter, result, nextPage) {
   };
 }
 
+function setResultsNextPage(filter, result, nextPage) {
+  return {
+    type: actionTypes.FETCH_RESOURCE_NEXT_PAGE,
+    payload: { filter, result, nextPage },
+  };
+}
+
 export function requestResource(filter) {
   return {
     type: actionTypes.FETCH_RESOURCE_REQUEST,
@@ -42,14 +49,33 @@ export function searchTracks(term) {
       tracks.model.trackListSchema
     );
 
-    let nextPage = null;
+    // let nextPage = null;
 
-    if (results.next_href) {
-      nextPage = results.next_href;
-    }
+    // if (results.next_href) {
+    //   nextPage = results.next_href;
+    // }
 
     dispatch(tracks.actions.setTracks(response));
-    dispatch(setResults('tracks', response.result, nextPage));
+    dispatch(setResults('tracks', response.result, results.next_href));
+
+    return response.entities.tracks;
+  };
+}
+
+export function searchTracksNextPage() {
+  return async (dispatch, getState) => {
+    dispatch(requestResource('tracks'));
+
+    const url = getState().search.tracks.nextPage;
+    const results = await api.tracks.searchNextPage(url);
+
+    const response = normalize(
+      results.collection,
+      tracks.model.trackListSchema
+    );
+
+    dispatch(tracks.actions.setTracks(response));
+    dispatch(setResultsNextPage('tracks', response.result, results.next_href));
 
     return response.entities.tracks;
   };

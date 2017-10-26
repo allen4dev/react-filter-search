@@ -11,6 +11,13 @@ const api = {
 
       return results;
     },
+
+    async searchNextPage(url) {
+      const response = await fetch(url);
+      const results = await response.json();
+
+      return results;
+    },
   },
   playlists: {
     async searchPlaylists(term) {

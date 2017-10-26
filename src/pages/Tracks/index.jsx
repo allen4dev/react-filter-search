@@ -34,19 +34,26 @@ class Tracks extends Component {
     await searchTracks(query);
   };
 
+  searchNext = async () => {
+    const { searchTracksNextPage } = this.props;
+
+    await searchTracksNextPage();
+  };
+
   renderItem = item => {
     return <Track key={item.id} {...item} />;
   };
 
+  // if (this.props.isFetching) {
+  //   return <h1 className="Loading">Loading...</h1>;
+  // }
   render() {
-    if (this.props.isFetching) {
-      return <h1 className="Loading">Loading...</h1>;
-    }
-
     // Just learned the render callback pattern
     return (
       <section className="Tracks container">
         <List items={this.props.items}>{this.renderItem}</List>
+        {this.props.isFetching && <h1 className="Loading">Loading...</h1>}
+        <button onClick={this.searchNext}>Search more</button>
       </section>
     );
   }
@@ -65,4 +72,5 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, {
   searchTracks: search.actions.searchTracks,
+  searchTracksNextPage: search.actions.searchTracksNextPage,
 })(Tracks);

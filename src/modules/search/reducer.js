@@ -21,6 +21,9 @@ function resultsReducer(filter) {
       case actionTypes.FETCH_RESOURCE_SUCCESS:
         return action.payload.result;
 
+      case actionTypes.FETCH_RESOURCE_NEXT_PAGE:
+        return [...state, ...action.payload.result];
+
       default:
         return state;
     }
@@ -38,6 +41,7 @@ function fetchingReducer(filter) {
         return true;
 
       case actionTypes.FETCH_RESOURCE_SUCCESS:
+      case actionTypes.FETCH_RESOURCE_NEXT_PAGE:
         return false;
 
       default:
