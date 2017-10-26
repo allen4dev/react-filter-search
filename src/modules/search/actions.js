@@ -13,22 +13,29 @@ export function setQuery(query) {
   };
 }
 
-function setTracks(filter, result) {
+function setResults(filter, result) {
   return {
-    type: actionTypes.SET_TRACKS,
-    payload: result,
+    type: actionTypes.FETCH_RESOURCE_SUCCESS,
+    payload: { filter, result },
+  };
+}
+
+export function requestResource(filter) {
+  return {
+    type: actionTypes.FETCH_RESOURCE_REQUEST,
+    payload: { filter },
   };
 }
 
 export function searchTracks(term) {
   return async dispatch => {
-    dispatch(tracks.requestTracks());
+    dispatch(requestResource('tracks'));
 
     const results = await api.tracks.searchTracks(term);
     const response = normalize(results, tracks.model.trackListSchema);
 
-    dispatch(tracks.setTracks(response));
-    dispatch(setTracks('filter', response.result));
+    dispatch(tracks.actions.setTracks(response));
+    dispatch(setResults('tracks', response.result));
 
     return response.entities.tracks;
   };

@@ -47,8 +47,6 @@ function lastReducer(state = INITIAL_STATE.last, action = {}) {
 
 const reducer = combineReducers({
   entities: entitiesReducer,
-  // fetching: fetchingReducer,
-  // results: resultsReducer,
   last: lastReducer,
 });
 

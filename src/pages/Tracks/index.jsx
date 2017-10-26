@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import './index.css';
 
-import tracks from './../../modules/tracks';
+import search from './../../modules/search';
 import helpers from './../../utils/helpers';
 
 class Tracks extends Component {
@@ -44,8 +44,8 @@ class Tracks extends Component {
 }
 
 function mapStateToProps(state) {
-  const ids = state.tracks.results;
-  const isFetching = state.tracks.fetching;
+  const ids = state.search.tracks.results;
+  const isFetching = state.search.tracks.fetching;
 
   return {
     isFetching,
@@ -55,5 +55,5 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
-  searchTracks: tracks.actions.searchTracks,
+  searchTracks: search.actions.searchTracks,
 })(Tracks);

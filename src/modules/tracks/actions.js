@@ -8,8 +8,8 @@ export function setTracks(response) {
   };
 }
 
-export function requestTracks() {
-  return {
-    type: actionTypes.FETCH_TRACKS_REQUEST,
-  };
-}
+// export function requestTracks() {
+//   return {
+//     type: actionTypes.FETCH_TRACKS_REQUEST,
+//   };
+// }

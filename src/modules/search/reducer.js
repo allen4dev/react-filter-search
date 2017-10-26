@@ -17,6 +17,10 @@ function resultsReducer(filter) {
       return state;
     }
 
+    if (action.type === actionTypes.FETCH_RESOURCE_SUCCESS) {
+      return [...state, ...action.payload.result];
+    }
+
     return state;
   };
 }
@@ -27,7 +31,16 @@ function fetchingReducer(filter) {
       return state;
     }
 
-    return state;
+    switch (action.type) {
+      case actionTypes.FETCH_RESOURCE_REQUEST:
+        return true;
+
+      case actionTypes.FETCH_RESOURCE_SUCCESS:
+        return false;
+
+      default:
+        return state;
+    }
   };
 }
 
