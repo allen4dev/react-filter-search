@@ -7,9 +7,3 @@ export function setTracks(response) {
     response,
   };
 }
-
-// export function requestTracks() {
-//   return {
-//     type: actionTypes.FETCH_TRACKS_REQUEST,
-//   };
-// }

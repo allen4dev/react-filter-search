@@ -3,11 +3,17 @@ import { connect } from 'react-redux';
 
 import './index.css';
 
+import search from './../../modules/search';
+
 import helpers from './../../utils/helpers';
 
 class Playlists extends Component {
   componentDidMount() {
-    console.log('PLAYLISTS QUERY:', this.props.query);
+    const { items } = this.props;
+
+    if (items.length === 0) {
+      this.fetchData();
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -17,7 +23,16 @@ class Playlists extends Component {
     }
   }
 
+  fetchData = async () => {
+    const { query, searchPlaylists } = this.props;
+    await searchPlaylists(query);
+  };
+
   render() {
+    if (this.props.isFetching) {
+      return <h1 className="Loading">Loading...</h1>;
+    }
+
     return (
       <section className="Playlists container">
         <h1>Put Playlists here</h1>
@@ -27,9 +42,16 @@ class Playlists extends Component {
 }
 
 function mapStateToProps(state) {
+  const ids = state.search.playlists.results;
+  const isFetching = state.search.playlists.fetching;
+
   return {
+    isFetching,
     query: state.search.query,
+    items: ids.map(id => state.playlists.entities[id]),
   };
 }
 
-export default connect(mapStateToProps)(Playlists);
+export default connect(mapStateToProps, {
+  searchPlaylists: search.actions.searchPlaylists,
+})(Playlists);
