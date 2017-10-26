@@ -132,3 +132,19 @@ export function searchUsers(term) {
     return response.entities.users;
   };
 }
+
+export function searchUsersNextPage() {
+  return async (dispatch, getState) => {
+    dispatch(requestResource('users'));
+
+    const url = getState().search.users.nextPage;
+    const results = await api.users.searchNextPage(url);
+
+    const response = normalize(results.collection, users.model.userListSchema);
+
+    dispatch(users.actions.setUsers(response));
+    dispatch(setResultsNextPage('users', response.result, results.next_href));
+
+    return response.entities.users;
+  };
+}

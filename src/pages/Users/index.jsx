@@ -1,44 +1,51 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import User from './../../modules/users/components/User';
+
+import List from './../../shared/List';
+
 import './index.css';
 
 import search from './../../modules/search';
 
-import helpers from './../../utils/helpers';
-
 class Users extends Component {
   componentDidMount() {
-    console.log('USERS QUERY:', this.props.query);
-
-    const { items, isFetching } = this.props;
+    const { query, items, isFetching } = this.props;
 
     if (items.length === 0 && !isFetching) {
-      this.fetchData();
+      this.fetchData(query);
     }
   }
 
   componentWillReceiveProps(nextProps) {
     const { query } = this.props;
-    if (helpers.cleanQuery(nextProps.location.search) !== query) {
-      console.log('FETCH NEW USERS HERE');
+    if (nextProps.query !== query) {
+      this.fetchData(nextProps.query);
     }
   }
 
-  fetchData = async () => {
-    const { query, searchUsers } = this.props;
-
+  fetchData = async query => {
+    const { searchUsers } = this.props;
     await searchUsers(query);
   };
 
-  render() {
-    if (this.props.isFetching) {
-      return <h1 className="Loading">Loading...</h1>;
-    }
+  searchNext = async () => {
+    const { query, searchUsersNextPage } = this.props;
 
+    await searchUsersNextPage(query);
+  };
+
+  renderItem = item => {
+    return <User key={item.id} {...item} />;
+  };
+
+  render() {
     return (
       <section className="Users container">
-        <h1>Put Users here</h1>
+        <List items={this.props.items}>{this.renderItem}</List>
+        {this.props.isFetching && <h1 className="Loading">Loading...</h1>}
+        <button onClick={this.searchNext}>Search more</button>
       </section>
     );
   }
@@ -57,4 +64,5 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, {
   searchUsers: search.actions.searchUsers,
+  searchUsersNextPage: search.actions.searchUsersNextPage,
 })(Users);

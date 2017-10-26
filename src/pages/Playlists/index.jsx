@@ -31,12 +31,6 @@ class Playlists extends Component {
   };
 
   searchNext = async () => {
-    const { query, searchTracksNextPage } = this.props;
-
-    await searchTracksNextPage(query);
-  };
-
-  searchNext = async () => {
     const { searchPlaylistsNextPage } = this.props;
 
     await searchPlaylistsNextPage();

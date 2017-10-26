@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import User from './../../modules/users/components/User';
+import Playlist from './../../modules/playlists/components/Set';
+import Track from './../../modules/tracks/components/Track';
+
+import List from './../../shared/List';
+
 import './index.css';
 
 import search from './../../modules/search';
-
-import helpers from './../../utils/helpers';
 
 class Overview extends Component {
   state = {
@@ -13,19 +17,24 @@ class Overview extends Component {
   };
 
   componentDidMount() {
-    console.log('ALL QUERY:', this.props.query);
-
-    const { tracks, users, playlists } = this.props;
+    const { query, tracks, users, playlists } = this.props;
 
     if (tracks.length === 0 || playlists.length === 0 || users.length === 0) {
       if (!this.state.loading) {
-        this.fetchData();
+        this.fetchData(query);
       }
     }
   }
 
-  fetchData = async () => {
-    const { query, searchTracks, searchPlaylists, searchUsers } = this.props;
+  componentWillReceiveProps(nextProps) {
+    const { query } = this.props;
+    if (nextProps.query !== query) {
+      this.fetchData(nextProps.query);
+    }
+  }
+
+  fetchData = async query => {
+    const { searchTracks, searchPlaylists, searchUsers } = this.props;
 
     this.setState({ loading: true });
 
@@ -38,12 +47,17 @@ class Overview extends Component {
     this.setState({ loading: false });
   };
 
-  componentWillReceiveProps(nextProps) {
-    const { query } = this.props;
-    if (helpers.cleanQuery(nextProps.location.search) !== query) {
-      console.log('FETCH NEW RESULTS HERE');
-    }
-  }
+  renderTrack = item => {
+    return <Track key={item.id} {...item} />;
+  };
+
+  renderPlaylist = item => {
+    return <Playlist key={item.id} {...item} />;
+  };
+
+  renderUser = item => {
+    return <User key={item.id} {...item} />;
+  };
 
   render() {
     if (this.state.loading) {
@@ -52,7 +66,9 @@ class Overview extends Component {
 
     return (
       <section className="Overview container">
-        <h1>Put last results here</h1>
+        <List items={this.props.tracks}>{this.renderTrack}</List>
+        <List items={this.props.playlists}>{this.renderPlaylist}</List>
+        <List items={this.props.users}>{this.renderUser}</List>
       </section>
     );
   }
