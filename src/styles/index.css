@@ -22,6 +22,22 @@ ul {
   list-style: none;
 }
 
+img {
+  max-width: 100%;
+}
+
 .container {
   padding: 2em;
+}
+
+.imageContainer {
+  font-size: 0;
+}
+
+.truncate {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* text-align: center; */
 }

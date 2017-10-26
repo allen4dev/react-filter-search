@@ -17,11 +17,16 @@ function resultsReducer(filter) {
       return state;
     }
 
-    if (action.type === actionTypes.FETCH_RESOURCE_SUCCESS) {
-      return [...state, ...action.payload.result];
-    }
+    switch (action.type) {
+      case actionTypes.FETCH_RESOURCE_SUCCESS:
+        return [...state, ...action.payload.result];
 
-    return state;
+      // case actionTypes.SET_QUERY:
+      //   return [];
+
+      default:
+        return state;
+    }
   };
 }
 
