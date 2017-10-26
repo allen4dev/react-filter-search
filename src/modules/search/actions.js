@@ -86,10 +86,34 @@ export function searchPlaylists(term) {
     dispatch(requestResource('playlists'));
 
     const results = await api.playlists.searchPlaylists(term);
-    const response = normalize(results, playlists.model.playlistListSchema);
+    const response = normalize(
+      results.collection,
+      playlists.model.playlistListSchema
+    );
 
     dispatch(playlists.actions.setPlaylists(response));
-    dispatch(setResults('playlists', response.result));
+    dispatch(setResults('playlists', response.result, results.next_href));
+
+    return response.entities.playlists;
+  };
+}
+
+export function searchPlaylistsNextPage() {
+  return async (dispatch, getState) => {
+    dispatch(requestResource('playlists'));
+
+    const url = getState().search.playlists.nextPage;
+    const results = await api.playlists.searchNextPage(url);
+
+    const response = normalize(
+      results.collection,
+      playlists.model.playlistListSchema
+    );
+
+    dispatch(playlists.actions.setPlaylists(response));
+    dispatch(
+      setResultsNextPage('playlists', response.result, results.next_href)
+    );
 
     return response.entities.playlists;
   };
@@ -100,10 +124,10 @@ export function searchUsers(term) {
     dispatch(requestResource('users'));
 
     const results = await api.users.searchUsers(term);
-    const response = normalize(results, users.model.userListSchema);
+    const response = normalize(results.collection, users.model.userListSchema);
 
     dispatch(users.actions.setUsers(response));
-    dispatch(setResults('users', response.result));
+    dispatch(setResults('users', response.result, results.next_href));
 
     return response.entities.users;
   };

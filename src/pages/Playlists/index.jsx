@@ -1,41 +1,57 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import Playlist from './../../modules/playlists/components/Set';
+
+import List from './../../shared/List';
+
 import './index.css';
 
 import search from './../../modules/search';
 
-import helpers from './../../utils/helpers';
-
 class Playlists extends Component {
   componentDidMount() {
-    const { items, isFetching } = this.props;
+    const { query, items, isFetching } = this.props;
 
     if (items.length === 0 && !isFetching) {
-      this.fetchData();
+      this.fetchData(query);
     }
   }
 
   componentWillReceiveProps(nextProps) {
     const { query } = this.props;
-    if (helpers.cleanQuery(nextProps.location.search) !== query) {
-      console.log('FETCH NEW PLAYLISTS HERE');
+    if (nextProps.query !== query) {
+      this.fetchData(nextProps.query);
     }
   }
 
-  fetchData = async () => {
-    const { query, searchPlaylists } = this.props;
+  fetchData = async query => {
+    const { searchPlaylists } = this.props;
     await searchPlaylists(query);
   };
 
-  render() {
-    if (this.props.isFetching) {
-      return <h1 className="Loading">Loading...</h1>;
-    }
+  searchNext = async () => {
+    const { query, searchTracksNextPage } = this.props;
 
+    await searchTracksNextPage(query);
+  };
+
+  searchNext = async () => {
+    const { searchPlaylistsNextPage } = this.props;
+
+    await searchPlaylistsNextPage();
+  };
+
+  renderItem = item => {
+    return <Playlist key={item.id} {...item} />;
+  };
+
+  render() {
     return (
       <section className="Playlists container">
-        <h1>Put Playlists here</h1>
+        <List items={this.props.items}>{this.renderItem}</List>
+        {this.props.isFetching && <h1 className="Loading">Loading...</h1>}
+        <button onClick={this.searchNext}>Search more</button>
       </section>
     );
   }
@@ -54,4 +70,5 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, {
   searchPlaylists: search.actions.searchPlaylists,
+  searchPlaylistsNextPage: search.actions.searchPlaylistsNextPage,
 })(Playlists);
