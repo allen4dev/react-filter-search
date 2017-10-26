@@ -4,6 +4,7 @@ import * as actionTypes from './actionTypes';
 
 import tracks from './../tracks';
 import playlists from './../playlists';
+import users from './../users';
 
 import api from './../../utils/api';
 
@@ -27,6 +28,8 @@ export function requestResource(filter) {
     payload: { filter },
   };
 }
+
+// Async actions
 
 export function searchTracks(term) {
   return async dispatch => {
@@ -53,5 +56,19 @@ export function searchPlaylists(term) {
     dispatch(setResults('playlists', response.result));
 
     return response.entities.playlists;
+  };
+}
+
+export function searchUsers(term) {
+  return async dispatch => {
+    dispatch(requestResource('users'));
+
+    const results = await api.users.searchUsers(term);
+    const response = normalize(results, users.model.userListSchema);
+
+    dispatch(users.actions.setUsers(response));
+    dispatch(setResults('users', response.result));
+
+    return response.entities.users;
   };
 }

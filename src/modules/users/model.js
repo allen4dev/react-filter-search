@@ -5,8 +5,5 @@ export const userListSchema = [userSchema];
 
 export const INITIAL_STATE = {
   entities: {},
-  results: [],
-  fetching: false,
-  nextPage: '',
   last: [],
 };
