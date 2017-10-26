@@ -4,15 +4,18 @@ export const INITIAL_STATE = {
     results: [],
     fetching: false,
     nextPage: '',
+    last: [],
   },
   playlists: {
     results: [],
     fetching: false,
     nextPage: '',
+    last: [],
   },
   users: {
     results: [],
     fetching: false,
     nextPage: '',
+    last: [],
   },
 };

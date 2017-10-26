@@ -49,10 +49,25 @@ function fetchingReducer(filter) {
   };
 }
 
+function lastReducer(filter) {
+  return (state = INITIAL_STATE[filter].last, action = {}) => {
+    if (!action.payload || filter !== action.payload.filter) {
+      return state;
+    }
+
+    if (action.type === actionTypes.FETCH_RESOURCE_SUCCESS) {
+      return action.payload.result;
+    }
+
+    return state;
+  };
+}
+
 function createReducer(filter) {
   return combineReducers({
     results: resultsReducer(filter),
     fetching: fetchingReducer(filter),
+    last: lastReducer(filter),
   });
 }
 

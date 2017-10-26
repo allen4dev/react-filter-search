@@ -16,17 +16,8 @@ function entitiesReducer(state = INITIAL_STATE.entities, action = {}) {
   }
 }
 
-function lastReducer(state = INITIAL_STATE.last, action = {}) {
-  if (action.type === actionTypes.FETCH_USERS_SUCCESS) {
-    return action.response.result;
-  }
-
-  return state;
-}
-
 const reducer = combineReducers({
   entities: entitiesReducer,
-  last: lastReducer,
 });
 
 export default reducer;

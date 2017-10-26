@@ -59,9 +59,9 @@ class Overview extends Component {
 }
 
 function mapStateToProps(state) {
-  const trackIds = state.tracks.last;
-  const playlistIds = state.playlists.last;
-  const userIds = state.users.last;
+  const trackIds = state.search.tracks.last;
+  const playlistIds = state.search.playlists.last;
+  const userIds = state.search.users.last;
 
   return {
     query: state.search.query,

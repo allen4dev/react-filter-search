@@ -5,5 +5,4 @@ export const playlistListSchema = [playlistSchema];
 
 export const INITIAL_STATE = {
   entities: {},
-  last: [],
 };
