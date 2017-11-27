@@ -1,9 +1,5 @@
+import { createAction } from 'redux-actions';
 import * as actionTypes from './actionTypes';
 
 // Action creators
-export function setUsers(response) {
-  return {
-    type: actionTypes.FETCH_USERS_SUCCESS,
-    response,
-  };
-}
+export const setUsers = createAction(actionTypes.FETCH_USERS_SUCCESS);
