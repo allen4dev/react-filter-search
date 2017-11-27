@@ -49,14 +49,6 @@ export function searchTracks(term) {
       tracks.model.trackListSchema
     );
 
-    // let nextPage = null;
-
-    // if (results.next_href) {
-    //   nextPage = results.next_href;
-    // }
-
-    console.log('RESPONSE', response);
-
     dispatch(tracks.actions.setTracks(response));
     dispatch(setResults('tracks', response.result, results.next_href));
 

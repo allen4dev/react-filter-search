@@ -1,20 +1,14 @@
 import { combineReducers } from 'redux';
+import { handleAction } from 'redux-actions';
 
 import * as actionTypes from './actionTypes';
 import { INITIAL_STATE } from './model';
 
-function entitiesReducer(state = INITIAL_STATE.entities, action = {}) {
-  switch (action.type) {
-    case actionTypes.FETCH_PLAYLISTS_SUCCESS:
-      return {
-        ...state,
-        ...action.response.entities.playlists,
-      };
-
-    default:
-      return state;
-  }
-}
+const entitiesReducer = handleAction(
+  actionTypes.FETCH_PLAYLISTS_SUCCESS,
+  (state, { payload: { entities } }) => ({ ...state, ...entities.playlists }),
+  INITIAL_STATE.entities
+);
 
 const reducer = combineReducers({
   entities: entitiesReducer,
