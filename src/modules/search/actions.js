@@ -55,6 +55,8 @@ export function searchTracks(term) {
     //   nextPage = results.next_href;
     // }
 
+    console.log('RESPONSE', response);
+
     dispatch(tracks.actions.setTracks(response));
     dispatch(setResults('tracks', response.result, results.next_href));
 

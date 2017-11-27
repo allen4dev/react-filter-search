@@ -1,20 +1,17 @@
 import { combineReducers } from 'redux';
+import { handleAction } from 'redux-actions';
 
 import * as actionTypes from './actionTypes';
 import { INITIAL_STATE } from './model';
 
-function entitiesReducer(state = INITIAL_STATE.entities, action = {}) {
-  switch (action.type) {
-    case actionTypes.FETCH_TRACKS_SUCCESS:
-      return {
-        ...state,
-        ...action.response.entities.tracks,
-      };
-
-    default:
-      return state;
-  }
-}
+const entitiesReducer = handleAction(
+  actionTypes.FETCH_TRACKS_SUCCESS,
+  (state, { payload: { entities } }) => ({
+    ...state,
+    ...entities.tracks,
+  }),
+  INITIAL_STATE.entities
+);
 
 const reducer = combineReducers({
   entities: entitiesReducer,
